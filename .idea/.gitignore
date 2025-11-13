@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+.idea/
+/modules.xml
+/.name
+/vcs.xml
+/misc.xml
+/Face_verification_api.iml
+/inspectionProfiles/profiles_settings.xml
