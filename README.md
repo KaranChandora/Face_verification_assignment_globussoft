@@ -62,10 +62,10 @@ Request (multipart/form-data):
   "face_1_boxes": [[121, 177, 74, 82]],
   "face_2_boxes": [[203, 69, 58, 148]]
 }
+```
 
-
-If no faces are detected:
-
+## If no faces are detected:
+```
 {
   "error": "No faces detected in one or both images"
 }
