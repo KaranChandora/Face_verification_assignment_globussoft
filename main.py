@@ -2,9 +2,8 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import JSONResponse
 import numpy as np
 import cv2
-import os
 
-app = FastAPI(title="Face Verification API (OpenCV DNN)")
+app = FastAPI(title="Face Verification API (OpenCV)")
 
 # Paths to face detection model
 prototxt_path = "models/deploy.prototxt"
@@ -15,7 +14,7 @@ net = cv2.dnn.readNetFromCaffe(prototxt_path, model_path)
 
 
 def read_image(file: UploadFile):
-    """Reads uploaded image and converts it to a numpy RGB array."""
+    #Reads uploaded image and converts it to a numpy RGB array.
     file_bytes = np.asarray(bytearray(file.file.read()), dtype=np.uint8)
     img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -23,7 +22,7 @@ def read_image(file: UploadFile):
 
 
 def get_face_embeddings(img, confidence_threshold=0.4):
-    """Detect faces and create simple flattened pixel embeddings."""
+    #Detect faces and create simple flattened pixel embeddings.
     (h, w) = img.shape[:2]
     blob = cv2.dnn.blobFromImage(cv2.resize(img, (300, 300)), 1.0,
                                  (300, 300), (104.0, 177.0, 123.0))
@@ -56,13 +55,13 @@ def get_face_embeddings(img, confidence_threshold=0.4):
 
 
 def cosine_similarity(a, b):
-    """Computes cosine similarity between two embeddings."""
+    #Computes cosine similarity between two embeddings.
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
 
 @app.post("/verify")
 async def verify_faces(file1: UploadFile = File(...), file2: UploadFile = File(...)):
-    """API endpoint for verifying if two faces belong to the same person."""
+    #API endpoint for verifying if two faces belong to the same person.
     img1 = read_image(file1)
     img2 = read_image(file2)
 
